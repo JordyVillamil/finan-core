@@ -1,0 +1,72 @@
+FROM php:8.2-fpm-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    freetype-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    postgresql-dev \
+    icu-dev \
+    oniguruma-dev \
+    libxml2-dev \
+    linux-headers \
+    $PHPIZE_DEPS
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+    pdo \
+    pdo_pgsql \
+    pgsql \
+    zip \
+    gd \
+    intl \
+    opcache \
+    bcmath \
+    pcntl \
+    soap \
+    sockets
+
+# Install Redis extension
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
+# Install Xdebug (for development)
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy composer files first (for better caching)
+COPY composer.json composer.lock* ./
+
+# Install PHP dependencies (if composer files exist)
+RUN if [ -f composer.json ]; then composer install --no-scripts --no-autoloader --no-dev; fi
+
+# Copy application code
+COPY . .
+
+# Generate optimized autoload files
+RUN if [ -f composer.json ]; then composer dump-autoload --optimize; fi
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Create user for running artisan commands
+RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
+
+USER www-data
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
