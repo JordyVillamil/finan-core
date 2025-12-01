@@ -6,10 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 // Interfaces del dominio
 use App\Domain\Auth\Repositories\UserRepositoryInterface;
+use App\Domain\Company\Repositories\CompanyRepositoryInterface;
 
 // Implementaciones de infraestructura
 use App\Infrastructure\Persistence\Eloquent\Repositories\EloquentUserRepository;
+use App\Infrastructure\Persistence\Eloquent\Repositories\EloquentCompanyRepository;
 use App\Infrastructure\Persistence\Eloquent\Models\UserModel;
+use App\Infrastructure\Persistence\Eloquent\Models\CompanyModel;
 
 /**
  * Service Provider para el Dominio
@@ -78,6 +81,22 @@ class DomainServiceProvider extends ServiceProvider
         //     EloquentUserRepository::class
         // );
         
+        // ============================================
+        // COMPANY REPOSITORY
+        // ============================================
+        
+        /**
+         * Binding: CompanyRepositoryInterface -> EloquentCompanyRepository
+         */
+        $this->app->bind(
+            CompanyRepositoryInterface::class,
+            function ($app) {
+                return new EloquentCompanyRepository(
+                    new CompanyModel()
+                );
+            }
+        );
+        
         /**
          * ¿Cuándo usar bind() vs singleton()?
          * 
@@ -129,6 +148,7 @@ class DomainServiceProvider extends ServiceProvider
     {
         return [
             UserRepositoryInterface::class,
+            CompanyRepositoryInterface::class,
         ];
     }
 }
