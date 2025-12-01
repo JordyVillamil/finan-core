@@ -1,7 +1,6 @@
-# Sistema Contable y Administrativo
+# Finan-Core - Sistema Contable y Administrativo
 
-[![CI/CD](https://github.com/tu-usuario/proyecto-contable/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/tu-usuario/proyecto-contable/actions)
-[![codecov](https://codecov.io/gh/tu-usuario/proyecto-contable/branch/main/graph/badge.svg)](https://codecov.io/gh/tu-usuario/proyecto-contable)
+[![CI/CD](https://github.com/JordyVillamil/finan-core/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/JordyVillamil/finan-core/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Sistema integral de gestión contable y administrativa para pequeñas y medianas empresas en Colombia.
@@ -17,18 +16,59 @@ Sistema integral de gestión contable y administrativa para pequeñas y medianas
 
 ## 🏗️ Arquitectura
 
-- **Backend**: Laravel 11 con Arquitectura Hexagonal + DDD
-- **Frontend**: React 18 + TypeScript + Tailwind CSS
-- **Base de Datos**: PostgreSQL 15
-- **Cache/Queues**: Redis 7
-- **Containerización**: Docker + Docker Compose
+```
+Arquitectura Hexagonal + DDD
+├── Domain/ (Lógica de negocio pura)
+│   ├── Auth/ ✅
+│   ├── Company/ 🔄
+│   ├── Billing/ 🔄
+│   └── Shared/
+├── Application/ (Casos de uso)
+├── Infrastructure/ (Adaptadores/Repositorios)
+└── Presentation/ (Controllers, API)
+```
+
+## 📦 Stack Tecnológico
+
+### Backend
+| Tecnología | Versión | Descripción |
+|------------|---------|-------------|
+| Laravel | 12.39.0 | Framework PHP |
+| PHP | 8.2 | Lenguaje backend |
+| Sanctum | 4.2.1 | Autenticación API |
+| Spatie Permission | 6.23.0 | Roles y permisos |
+| DomPDF | 3.1.1 | Generación PDF |
+| PHPUnit | 11.5.44 | Testing |
+
+### Frontend
+| Tecnología | Versión | Descripción |
+|------------|---------|-------------|
+| React | 19.2.0 | UI Library |
+| TypeScript | 5.9.3 | Tipado estático |
+| Vite | 7.2.4 | Build tool |
+| Tailwind CSS | 4.1.17 | Estilos |
+| Zustand | 5.0.8 | State management |
+| React Query | 5.90.10 | Data fetching |
+| React Hook Form | 7.66.1 | Formularios |
+| Zod | 4.1.12 | Validación |
+| Vitest | 4.0.13 | Testing |
+
+### Infraestructura (Docker)
+| Servicio | Imagen | Puerto |
+|----------|--------|--------|
+| PHP-FPM | php:8.2-fpm-alpine | 9000 |
+| PostgreSQL | postgres:15-alpine | 5432 |
+| Redis | redis:7-alpine | 6379 |
+| Nginx | nginx:alpine | 80, 443 |
+| MailHog | mailhog/mailhog | 1025, 8025 |
+| Frontend | node | 3000 |
 
 ## 📋 Requisitos Previos
 
 - Docker Desktop 4.0+
 - Git 2.30+
-- Node.js 18+ (para desarrollo local sin Docker)
-- PHP 8.2+ (para desarrollo local sin Docker)
+- Node.js 22+ (para desarrollo local - requerido por Vite 7)
+- PHP 8.2+ (para desarrollo local)
 - Composer 2.0+
 
 ## 🚀 Inicio Rápido
@@ -37,8 +77,8 @@ Sistema integral de gestión contable y administrativa para pequeñas y medianas
 
 ```bash
 # 1. Clonar repositorio
-git clone https://github.com/tu-usuario/proyecto-contable.git
-cd proyecto-contable
+git clone https://github.com/JordyVillamil/finan-core.git
+cd finan-core
 
 # 2. Copiar archivo de configuración
 cp backend/.env.example backend/.env
@@ -53,7 +93,7 @@ docker-compose exec frontend npm install
 # 5. Generar clave de aplicación
 docker-compose exec php php artisan key:generate
 
-# 6. Ejecutar migraciones
+# 6. Ejecutar migraciones y seeders
 docker-compose exec php php artisan migrate --seed
 
 # 7. Acceder a la aplicación
@@ -65,6 +105,19 @@ docker-compose exec php php artisan migrate --seed
 ### Sin Docker
 
 Ver [INSTALLATION.md](docs/INSTALLATION.md) para instrucciones detalladas.
+
+## 🔐 API de Autenticación
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| POST | `/api/auth/register` | Registrar usuario | No |
+| POST | `/api/auth/login` | Iniciar sesión | No |
+| POST | `/api/auth/logout` | Cerrar sesión | Sí |
+| GET | `/api/auth/me` | Obtener usuario actual | Sí |
+| POST | `/api/auth/forgot-password` | Solicitar reset password | No |
+| POST | `/api/auth/reset-password` | Cambiar contraseña | No |
+| POST | `/api/auth/verify-email` | Verificar email | No |
+| POST | `/api/auth/resend-verification` | Reenviar verificación | No |
 
 ## 📚 Documentación
 
@@ -137,19 +190,40 @@ Despliega manualmente desde `main` branch con aprobación requerida.
 
 Ver [DEPLOYMENT.md](docs/DEPLOYMENT.md) para más detalles.
 
-## 📈 Roadmap
+## 📈 Progreso del Proyecto
 
-- [x] Sprint 0: Setup e infraestructura
-- [x] Sprint 1: Autenticación y usuarios
-- [ ] Sprint 2: Facturación básica
-- [ ] Sprint 3: Inventario
-- [ ] Sprint 4: Compras
-- [ ] Sprint 5: Cobranza y cotizaciones
-- [ ] Sprint 6: Contabilidad
-- [ ] Sprint 7: Reportes
-- [ ] Sprint 8: Testing y refinamiento
+```
+Sprint 0: ████████████████████ 100% ✅ Setup e Infraestructura
+Sprint 1: ████████████████████ 100% ✅ Autenticación y Usuarios
+Sprint 2: ████░░░░░░░░░░░░░░░░  20% 🔄 Empresas y Facturación
+Sprint 3: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Inventario
+Sprint 4: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Compras
+Sprint 5: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Cobranza y Cotizaciones
+Sprint 6: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Contabilidad
+Sprint 7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Reportes
+Sprint 8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Testing y Refinamiento
 
-Ver [Project Board](https://github.com/tu-usuario/proyecto-contable/projects/1) para detalles.
+Progreso total: 22.5%
+```
+
+### ✅ Completado (Sprint 1)
+- Sistema de autenticación completo (Laravel Sanctum)
+- Registro, login, logout
+- Verificación de email (MailHog)
+- Reset password
+- Sistema de roles y permisos (Spatie Permission)
+  - 6 roles: Super Admin, Admin, Contador, Auditor, Vendedor, Usuario
+  - 38 permisos granulares
+- 45+ tests pasando (~85% cobertura)
+- Arquitectura hexagonal + DDD implementada
+
+### 🔄 En Progreso (Sprint 2)
+- Módulo de Empresas
+- CRUD de Clientes
+- CRUD de Productos
+- Facturación básica con PDF
+
+Ver [Project Board](https://github.com/JordyVillamil/finan-core/projects/1) para detalles.
 
 ## 🤝 Contribución
 
@@ -167,11 +241,9 @@ Este proyecto está bajo la Licencia MIT - ver [LICENSE](LICENSE) para detalles.
 
 ## 👤 Autor
 
-**Tu Nombre**
+**Jordy Villamil**
 
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
-- Portfolio: [tu-portfolio.com](https://tu-portfolio.com)
+- GitHub: [@JordyVillamil](https://github.com/JordyVillamil)
 
 ## 🙏 Agradecimientos
 

@@ -250,7 +250,7 @@ Desarrollar un sistema integral de gestión contable y administrativa que permit
 - ✅ Railway / Render (backend)
 - ✅ Supabase / PlanetScale (base de datos)
 - ✅ Cloudinary (almacenamiento imágenes)
-- ✅ Mailtrap (testing emails)
+- ✅ Mailhog (testing emails en desarrollo - docker)
 - ✅ Sentry (monitoreo errores)
 
 ### Conocimientos Requeridos

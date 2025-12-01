@@ -789,7 +789,7 @@ Sistema web empresarial independiente que integra múltiples módulos contables 
 ## 5. RESTRICCIONES
 
 ### 5.1 Restricciones Técnicas
-- Backend debe ser Laravel 11+
+- Backend debe ser Laravel 12+
 - Frontend debe ser React 18+
 - Base de datos PostgreSQL 15+
 - Hosting compatible con PHP 8.2+

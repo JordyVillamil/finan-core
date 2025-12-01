@@ -514,22 +514,243 @@ docs/
 
 ### 8.1 Release Plan
 
-**MVP (v1.0)**: Sprint 1-9 (18 semanas)
+**MVP (v1.0)**: Sprint 0-8 (18 semanas)
 
 **Releases incrementales:**
 
 | Release | Sprint | Fecha Objetivo | Funcionalidades |
 |---------|--------|----------------|-----------------|
-| v0.1 | 2 | Semana 4 | Autenticación, usuarios, dashboard |
-| v0.2 | 3 | Semana 6 | Facturación básica |
-| v0.3 | 4 | Semana 8 | Inventario completo |
-| v0.4 | 5 | Semana 10 | Compras y proveedores |
-| v0.5 | 6 | Semana 12 | Cobranza y cotizaciones |
-| v0.6 | 7 | Semana 14 | Contabilidad básica |
-| v0.7 | 8 | Semana 16 | Reportes y analytics |
-| v1.0 | 9 | Semana 18 | Testing, docs, producción |
+| v0.1 | 0-1 | Semana 3 | Setup, Autenticación, usuarios |
+| v0.2 | 2 | Semana 5 | Empresas, Facturación básica |
+| v0.3 | 3 | Semana 7 | Inventario completo |
+| v0.4 | 4 | Semana 9 | Compras y proveedores |
+| v0.5 | 5 | Semana 11 | Cobranza y cotizaciones |
+| v0.6 | 6 | Semana 13 | Contabilidad básica |
+| v0.7 | 7 | Semana 15 | Reportes y analytics |
+| v1.0 | 8 | Semana 17 | Testing, docs, producción |
 
-### 8.2 Milestones
+---
+
+### 8.2 Sprints Planificados (9 sprints)
+
+#### Sprint 0: Setup e Infraestructura ✅ COMPLETADO
+**Duración:** 1 semana (preparación)
+**Objetivo:** Configurar entorno de desarrollo y CI/CD
+
+**Entregables:**
+- [x] Repositorio Git configurado
+- [x] Docker Compose funcionando (backend + frontend + BD)
+- [x] Pipeline CI/CD básico
+- [x] Estructura de carpetas según arquitectura hexagonal
+- [x] Configuración de testing (PHPUnit, Jest)
+- [x] Documentación técnica inicial
+
+---
+
+#### Sprint 1: Autenticación y Gestión de Usuarios ✅ COMPLETADO
+**Duración:** 2 semanas
+**Objetivo:** Sistema completo de autenticación y autorización
+
+**Entregables:**
+- [x] Registro de usuarios
+- [x] Login/Logout con Laravel Sanctum
+- [x] Recuperación de contraseña
+- [x] Verificación de email
+- [x] Gestión de roles y permisos (Spatie Permission)
+- [x] Middleware de autorización
+- [x] Tests unitarios y de integración (45+ tests)
+
+**Roles implementados:**
+- [x] Super Admin
+- [x] Admin
+- [x] Contador
+- [x] Auditor
+- [x] Vendedor
+- [x] Usuario
+
+**Permisos implementados:** 38 permisos granulares
+
+**Resultados Reales Sprint 1:**
+| Métrica | Valor |
+|---------|-------|
+| Tests creados | 45+ |
+| Cobertura | ~85% |
+| Líneas de código | ~5,000 |
+| Archivos creados | 50+ |
+| Duración real | 2 semanas |
+| Deuda técnica | 0% |
+
+---
+
+#### Sprint 2: Empresas y Facturación Básica 🔄 EN PROGRESO
+**Duración:** 2 semanas
+**Objetivo:** Gestión de empresas y facturación básica
+
+**SEMANA 1: Módulo de Empresas y Maestros**
+
+**Días 1-2: Empresas**
+- [ ] CRUD completo de empresas
+- [ ] Información fiscal (RFC/NIT, régimen fiscal)
+- [ ] Configuración de series de facturación
+- [ ] Logo y certificados digitales
+- [ ] Relación empresa-usuario (muchos a muchos)
+- [ ] Activar/desactivar empresas
+
+**Día 3: Clientes**
+- [ ] CRUD de clientes
+- [ ] Información fiscal del cliente
+- [ ] Historial de compras
+- [ ] Búsqueda y filtros
+
+**Días 4-5: Productos/Servicios**
+- [ ] CRUD de productos/servicios
+- [ ] Categorías de productos
+- [ ] Precios e impuestos
+- [ ] Control de inventario básico
+
+**SEMANA 2: Facturación**
+
+**Días 1-3: Creación de Facturas**
+- [ ] Crear factura con múltiples items
+- [ ] Cálculo automático de subtotales
+- [ ] Cálculo de impuestos (IVA, retenciones)
+- [ ] Total de factura
+- [ ] Validaciones de negocio
+
+**Día 4: PDF y Estados**
+- [ ] Generación de PDF (DomPDF)
+- [ ] Estados de factura (borrador, emitida, pagada, cancelada, anulada)
+- [ ] Transiciones de estado válidas
+
+**Día 5: Testing**
+- [ ] Tests unitarios de entidades
+- [ ] Tests de cálculos fiscales
+- [ ] Tests de integración
+- [ ] Tests E2E de facturación
+
+**Entregables Sprint 2:**
+- [ ] Módulo completo de empresas
+- [ ] Maestro de clientes
+- [ ] Catálogo de productos
+- [ ] Facturación básica funcional
+- [ ] Generación de PDF
+- [ ] 60+ tests pasando
+
+---
+
+#### Sprint 3: Inventario
+**Duración:** 2 semanas
+**Objetivo:** Control de inventario y stock
+
+**Entregables:**
+- [ ] Módulo de inventario
+- [ ] Entradas de inventario
+- [ ] Salidas de inventario
+- [ ] Ajustes de inventario
+- [ ] Kardex de productos
+- [ ] Alertas de stock mínimo
+- [ ] Reportes de inventario
+- [ ] Tests completos
+
+---
+
+#### Sprint 4: Compras
+**Duración:** 2 semanas
+**Objetivo:** Gestión de compras a proveedores
+
+**Entregables:**
+- [ ] CRUD de proveedores
+- [ ] Órdenes de compra
+- [ ] Recepción de mercancía
+- [ ] Cuentas por pagar
+- [ ] Conciliación de facturas
+- [ ] Integración con inventario
+- [ ] Tests completos
+
+---
+
+#### Sprint 5: Cobranza y Cotizaciones
+**Duración:** 2 semanas
+**Objetivo:** Gestión de cobranza y cotizaciones
+
+**Entregables:**
+- [ ] Cotizaciones
+- [ ] Conversión cotización → factura
+- [ ] Registro de pagos
+- [ ] Conciliación bancaria
+- [ ] Cuentas por cobrar
+- [ ] Antigüedad de saldos
+- [ ] Recordatorios de pago
+- [ ] Tests completos
+
+---
+
+#### Sprint 6: Contabilidad
+**Duración:** 2 semanas
+**Objetivo:** Contabilidad general y pólizas
+
+**Entregables:**
+- [ ] Catálogo de cuentas contables
+- [ ] Creación de pólizas
+- [ ] Libro diario
+- [ ] Libro mayor
+- [ ] Balanza de comprobación
+- [ ] Cierre mensual
+- [ ] Tests completos
+
+---
+
+#### Sprint 7: Reportes y Analytics
+**Duración:** 2 semanas
+**Objetivo:** Reportes financieros y análisis
+
+**Entregables:**
+- [ ] Dashboard ejecutivo
+- [ ] Estado de resultados
+- [ ] Balance general
+- [ ] Flujo de efectivo
+- [ ] Reportes fiscales
+- [ ] Gráficos y métricas
+- [ ] Exportación a Excel/PDF
+- [ ] Tests completos
+
+---
+
+#### Sprint 8: Testing, Optimización y Refinamiento
+**Duración:** 2 semanas
+**Objetivo:** Pulir sistema completo
+
+**Entregables:**
+- [ ] Testing completo E2E
+- [ ] Optimización de queries
+- [ ] Mejoras de UX/UI
+- [ ] Documentación de usuario
+- [ ] Documentación técnica
+- [ ] Deploy a producción
+- [ ] Capacitación
+
+---
+
+### 8.3 Métricas por Sprint
+
+#### Métricas de Calidad
+| Métrica | Objetivo |
+|---------|----------|
+| Cobertura de tests | Mínimo 80% |
+| Tests pasando | 100% |
+| Deuda técnica | Máximo 5% por sprint |
+| Code review | 100% del código |
+
+#### Métricas de Productividad
+| Métrica | Descripción |
+|---------|-------------|
+| Velocity | Puntos de historia completados |
+| Burndown | Seguimiento diario del trabajo restante |
+| Time to market | Tiempo desde idea hasta producción |
+
+---
+
+### 8.4 Milestones
 
 **Milestone 1**: Sistema de autenticación funcional  
 **Milestone 2**: Primera factura generada  

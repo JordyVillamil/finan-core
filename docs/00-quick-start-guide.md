@@ -25,7 +25,7 @@ Un sistema integral de gestión contable y administrativa para pequeñas y media
 ### Stack Tecnológico
 
 **Backend:**
-- Laravel 11 (PHP 8.2+)
+- Laravel 12 (PHP 8.2+)
 - PostgreSQL 15
 - Redis 7
 - Arquitectura Hexagonal + DDD
@@ -117,6 +117,17 @@ docker-compose up -d
 docker-compose ps
 ```
 
+**Servicios disponibles después de levantar Docker:**
+| Servicio | URL | Puerto |
+|----------|-----|--------|
+| Backend (API) | http://localhost | 80 |
+| Frontend (Vite) | http://localhost:3000 | 3000 |
+| Mailhog UI | http://localhost:8025 | 8025 |
+| PostgreSQL | localhost:5432 | 5432 |
+| Redis | localhost:6379 | 6379 |
+
+> **Nota:** Mailhog captura todos los emails enviados para pruebas de desarrollo (no se envían a internet).
+
 **Día 5: Backend Setup**
 ```bash
 # 1. Instalar Laravel
@@ -183,144 +194,98 @@ npm run test
 
 ---
 
-### Fase 2: Sprint 1 - Autenticación (Semanas 3-4)
+## 📊 Estado Actual del Proyecto
 
-#### Sprint Planning
+> **Nota:** Para el detalle completo de todos los sprints, ver [05-agile-methodology.md](05-agile-methodology.md#82-sprints-planificados-9-sprints)
 
-**Sprint Goal:** Implementar sistema de autenticación completo con roles y permisos
+### ✅ Completado
 
-**User Stories Comprometidas:**
-- US-001: Login de usuario (5 pts)
-- US-002: Registro de usuario (3 pts)
-- US-003: Recuperación de contraseña (3 pts)
-- US-004: Sistema de roles (5 pts)
-- US-005: Dashboard básico (3 pts)
-- US-006: Configuración de empresa (3 pts)
+**Sprint 0: Setup e Infraestructura**
+- Entorno Docker configurado (PHP 8.2, PostgreSQL 15, Redis 7, MailHog)
+- Arquitectura hexagonal implementada
+- CI/CD configurado
+- Testing configurado (PHPUnit)
 
-**Total:** 22 Story Points
+**Sprint 1: Autenticación y Usuarios**
+- Sistema de autenticación completo (Laravel Sanctum)
+- Registro, login, logout
+- Verificación de email (MailHog)
+- Reset password
+- Sistema de roles y permisos (Spatie Permission)
+  - 6 roles: Super Admin, Admin, Contador, Auditor, Vendedor, Usuario
+  - 38 permisos granulares
+- 45+ tests pasando
+- Arquitectura hexagonal + DDD implementada
 
-#### Tasks por User Story
+### 🔄 En Progreso
 
-**US-001: Login de Usuario**
+**Sprint 2: Empresas y Facturación Básica**
+- **Semana 1:** Módulo de Empresas, Clientes, Productos
+- **Semana 2:** Facturación, PDF, Estados
+
+### 📅 Próximos Sprints
+
+- Sprint 3: Inventario (2 semanas)
+- Sprint 4: Compras (2 semanas)
+- Sprint 5: Cobranza y Cotizaciones (2 semanas)
+- Sprint 6: Contabilidad (2 semanas)
+- Sprint 7: Reportes (2 semanas)
+- Sprint 8: Testing y Refinamiento (2 semanas)
+
+**Tiempo estimado total:** 18 semanas (~4.5 meses)
+
+---
+
+## 🏗️ Arquitectura Implementada
+
+### Backend (Laravel 12)
 ```
-Backend:
-- [ ] Crear AuthController con método login
-- [ ] Implementar validación de credenciales
-- [ ] Generar JWT token con Sanctum
-- [ ] Crear LoginRequest con validaciones
-- [ ] Escribir tests de autenticación
-- [ ] Documentar endpoint en Swagger
-
-Frontend:
-- [ ] Crear LoginForm component
-- [ ] Implementar validación con react-hook-form + zod
-- [ ] Crear authService para API calls
-- [ ] Implementar authStore con Zustand
-- [ ] Agregar toast notifications
-- [ ] Escribir tests de componente
-```
-
-**US-002: Registro de Usuario**
-```
-Backend:
-- [ ] Crear endpoint de registro
-- [ ] Validar datos de entrada
-- [ ] Hash password con bcrypt
-- [ ] Enviar email de verificación
-- [ ] Crear tests
-
-Frontend:
-- [ ] Crear RegisterForm component
-- [ ] Validaciones (password strength, email format)
-- [ ] Integrar con backend
-- [ ] Tests
-```
-
-#### Desarrollo Día a Día (Ejemplo Semana 1 del Sprint)
-
-**Lunes:**
-```markdown
-## Daily Scrum - 2025-11-25
-
-### Plan del día:
-- [ ] Sprint Planning (2 horas)
-- [ ] Setup de estructura de dominio para Auth
-- [ ] Crear entities: User, Role, Permission
-- [ ] Tests unitarios para User entity
-
-### Progreso esperado: 15%
+Arquitectura Hexagonal + DDD
+├── Domain/ (Lógica de negocio pura)
+│   ├── Auth/ ✅
+│   ├── Company/ 🔄 (en progreso)
+│   ├── Billing/ 🔄 (en progreso)
+│   └── Shared/
+│
+├── Application/ (Casos de uso)
+│   ├── Auth/ ✅
+│   ├── Company/ 🔄
+│   └── Billing/ 🔄
+│
+├── Infrastructure/ (Adaptadores)
+│   └── Persistence/Eloquent/ ✅
+│
+└── Presentation/ (Controllers, API)
+    └── Http/Controllers/Api/ ✅
 ```
 
-**Martes:**
-```markdown
-## Daily Scrum - 2025-11-26
+### Stack Tecnológico Implementado
+- ✅ Laravel 12
+- ✅ PostgreSQL 15
+- ✅ Redis 7
+- ✅ MailHog (emails de desarrollo)
+- ✅ Sanctum (autenticación API)
+- ✅ Spatie Permission (roles y permisos)
+- ✅ PHPUnit (testing)
+- ⏳ DomPDF (generación de PDFs) - Sprint 2
+- ⏳ React 19 + Vite 7 - Después del backend
 
-### Ayer:
-- ✅ Sprint Planning completado
-- ✅ Estructura de dominio creada
-- ✅ User entity implementada
+---
 
-### Hoy:
-- [ ] Implementar AuthService en Application layer
-- [ ] Crear Repository interfaces
-- [ ] Implementar EloquentUserRepository
-- [ ] Tests de integración para AuthService
+## 📈 Progreso General
 
-### Impedimentos: Ninguno
 ```
+Sprint 0: ████████████████████ 100% ✅
+Sprint 1: ████████████████████ 100% ✅
+Sprint 2: ████░░░░░░░░░░░░░░░░  20% 🔄
+Sprint 3: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
+Sprint 4: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
+Sprint 5: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
+Sprint 6: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
+Sprint 7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
+Sprint 8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳
 
-**Miércoles:**
-```markdown
-## Daily Scrum - 2025-11-27
-
-### Ayer:
-- ✅ AuthService implementado
-- ✅ Repositories creados
-- ⚠️ Falta completar tests de integración
-
-### Hoy:
-- [ ] Completar tests de repositories
-- [ ] Crear AuthController
-- [ ] Implementar endpoints /login y /register
-- [ ] Tests de API
-
-### Impedimentos: Ninguno
-```
-
-**Jueves:**
-```markdown
-## Daily Scrum - 2025-11-28
-
-### Ayer:
-- ✅ AuthController completado
-- ✅ Endpoints de autenticación funcionando
-- ✅ Tests de API pasando
-
-### Hoy:
-- [ ] Iniciar frontend: LoginForm component
-- [ ] Setup de authStore
-- [ ] Integración con backend
-- [ ] Validaciones de formulario
-
-### Impedimentos: Ninguno
-```
-
-**Viernes:**
-```markdown
-## Daily Scrum - 2025-11-29
-
-### Ayer:
-- ✅ LoginForm component creado
-- ✅ authStore implementado
-- ✅ Integración exitosa
-
-### Hoy:
-- [ ] Refactoring y limpieza de código
-- [ ] Documentación inline
-- [ ] Code review personal
-- [ ] Preparar demo
-
-### Progreso del sprint: 40%
+Progreso total: 22.5% (2 de 8 sprints completados + 20% del Sprint 2)
 ```
 
 ---

@@ -71,33 +71,39 @@
 **Variables de Entorno:**
 
 ```bash
-# .env.local
+# .env.local (Docker)
 APP_ENV=local
 APP_DEBUG=true
 DB_CONNECTION=pgsql
-DB_HOST=localhost
-MAIL_DRIVER=log
+DB_HOST=postgres
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="noreply@finan-core.com"
 
 # .env.development
 APP_ENV=development
 APP_DEBUG=true
 DB_CONNECTION=pgsql
 DB_HOST=dev-db.internal
-MAIL_DRIVER=smtp
+MAIL_MAILER=smtp
 
 # .env.staging
 APP_ENV=staging
 APP_DEBUG=false
 DB_CONNECTION=pgsql
 DB_HOST=stg-db.internal
-MAIL_DRIVER=smtp
+MAIL_MAILER=smtp
 
 # .env.production
 APP_ENV=production
 APP_DEBUG=false
 DB_CONNECTION=pgsql
 DB_HOST=prod-db.internal
-MAIL_DRIVER=smtp
+MAIL_MAILER=smtp
 SENTRY_DSN=https://...
 ```
 
