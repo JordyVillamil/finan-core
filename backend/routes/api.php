@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\Company\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,4 +145,34 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/users/{userId}/roles/{role}', [RoleController::class, 'removeRole'])
         ->middleware('permission:assign-roles')
         ->name('users.roles.remove');
+});
+
+// ============================================
+// RUTAS DE EMPRESAS
+// ============================================
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    
+    // CRUD de empresas
+    Route::get('/companies', [CompanyController::class, 'index'])
+        ->middleware('permission:view-companies');
+    
+    Route::post('/companies', [CompanyController::class, 'store'])
+        ->middleware('permission:create-companies');
+    
+    Route::get('/companies/{id}', [CompanyController::class, 'show'])
+        ->middleware('permission:view-companies');
+    
+    Route::put('/companies/{id}', [CompanyController::class, 'update'])
+        ->middleware('permission:edit-companies');
+    
+    Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])
+        ->middleware('permission:delete-companies');
+    
+    // Activar/Desactivar
+    Route::post('/companies/{id}/activate', [CompanyController::class, 'activate'])
+        ->middleware('permission:manage-companies');
+    
+    Route::post('/companies/{id}/deactivate', [CompanyController::class, 'deactivate'])
+        ->middleware('permission:manage-companies');
 });

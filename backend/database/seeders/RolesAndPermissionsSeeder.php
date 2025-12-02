@@ -101,6 +101,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'create-companies',    // Crear empresas
             'edit-companies',      // Editar empresas
             'delete-companies',    // Eliminar empresas
+            'manage-companies',    // Activar/desactivar empresas
 
             // ============================================
             // PERMISOS DE PRODUCTOS
@@ -179,6 +180,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'view-companies',
             'create-companies',
             'edit-companies',
+            'delete-companies',
+            'manage-companies',
             'view-clients',
             'create-clients',
             'edit-clients',
@@ -211,6 +214,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'view-clients',
             'create-clients',
             'edit-clients',
+            'view-companies',
+            'create-companies',
+            'edit-companies',
             'view-reports',
             'view-financial-reports',
             'export-reports',
@@ -263,6 +269,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'view-clients',
             'create-clients',
             'view-products',
+            'view-companies',
         ]);
         
         $this->command->info('✅ Rol creado: Vendedor');
@@ -283,6 +290,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $user->syncPermissions([
             'view-invoices',
             'view-products',
+            'view-companies',
         ]);
         
         $this->command->info('✅ Rol creado: Usuario');
