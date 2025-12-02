@@ -195,7 +195,7 @@ Ver [DEPLOYMENT.md](docs/DEPLOYMENT.md) para más detalles.
 ```
 Sprint 0: ████████████████████ 100% ✅ Setup e Infraestructura
 Sprint 1: ████████████████████ 100% ✅ Autenticación y Usuarios
-Sprint 2: ████░░░░░░░░░░░░░░░░  20% 🔄 Empresas y Facturación
+Sprint 2: ████████████░░░░░░░░  60% 🔄 Empresas y Facturación
 Sprint 3: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Inventario
 Sprint 4: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Compras
 Sprint 5: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Cobranza y Cotizaciones
@@ -203,7 +203,7 @@ Sprint 6: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ 
 Sprint 7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Reportes
 Sprint 8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Testing y Refinamiento
 
-Progreso total: 22.5%
+Progreso total: 32.5%
 ```
 
 ### ✅ Completado (Sprint 1)
@@ -217,8 +217,33 @@ Progreso total: 22.5%
 - 45+ tests pasando (~85% cobertura)
 - Arquitectura hexagonal + DDD implementada
 
-### 🔄 En Progreso (Sprint 2)
-- Módulo de Empresas
+### 🔄 En Progreso (Sprint 2 - Empresas)
+
+#### ✅ Domain Layer
+- **Value Objects (4):** TaxId, PhoneNumber, Address, InvoiceSettings
+- **Entity:** Company con métodos de dominio
+- **Exceptions (4):** CompanyNotFoundException, InvalidTaxIdException, DuplicateTaxIdException, InvalidCompanyDataException
+- **Repository Interface:** CompanyRepositoryInterface
+- **Tests:** 84 tests unitarios pasando
+
+#### ✅ Infrastructure Layer
+- **Migraciones:** 2 tablas (companies, company_settings)
+- **Model:** CompanyModel con relaciones y scopes
+- **Repository:** EloquentCompanyRepository implementado
+- **DI:** Bindings en DomainServiceProvider
+- **Tests:** 14 tests de integración pasando
+
+#### ✅ Application Layer
+- **DTOs:** CreateCompanyDTO, UpdateCompanyDTO, CompanyResponseDTO
+- **Services:** CreateCompanyService, UpdateCompanyService, ListCompaniesService, DeleteCompanyService
+
+#### ✅ Presentation Layer
+- **Form Requests:** CreateCompanyRequest, UpdateCompanyRequest (validación)
+- **Controller:** CompanyController con CRUD completo
+- **Rutas API:** 7 endpoints (CRUD + activate/deactivate)
+- **Permisos:** 5 permisos (view, create, edit, delete, manage)
+
+#### ⏳ Pendiente
 - CRUD de Clientes
 - CRUD de Productos
 - Facturación básica con PDF

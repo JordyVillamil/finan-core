@@ -27,12 +27,12 @@ Las facturas **necesitan** una empresa emisora porque:
 Sin empresas, las facturas no tienen sentido en el mundo real.
 
 ### Entregables del Sprint
-- ✅ Módulo completo de Empresas (CRUD + configuración fiscal)
-- ✅ Maestro de Clientes
-- ✅ Catálogo de Productos/Servicios
-- ✅ Facturación básica (crear, calcular, PDF)
-- ✅ Estados de factura
-- ✅ 60+ tests automatizados
+- ✅ Módulo completo de Empresas (CRUD + configuración fiscal) **COMPLETADO**
+- ⏳ Maestro de Clientes
+- ⏳ Catálogo de Productos/Servicios
+- ⏳ Facturación básica (crear, calcular, PDF)
+- ⏳ Estados de factura
+- ⏳ 60+ tests automatizados (98 tests actuales)
 
 ---
 
