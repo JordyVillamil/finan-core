@@ -61,6 +61,19 @@ interface CompanyRepositoryInterface
     public function save(Company $company): void;
 
     /**
+     * Actualizar campos específicos de una empresa
+     * 
+     * Permite actualizaciones parciales sin necesidad de enviar todos los campos.
+     * Solo actualiza los campos proporcionados en el array.
+     * 
+     * @param CompanyId $id ID de la empresa a actualizar
+     * @param array<string, mixed> $fields Campos a actualizar (key => value)
+     * @return Company Empresa actualizada
+     * @throws CompanyNotFoundException Si la empresa no existe
+     */
+    public function update(CompanyId $id, array $fields): Company;
+
+    /**
      * Eliminar empresa (soft delete)
      * 
      * @param CompanyId $id

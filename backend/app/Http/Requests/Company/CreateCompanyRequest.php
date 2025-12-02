@@ -62,7 +62,7 @@ class CreateCompanyRequest extends FormRequest
             
             'email' => [
                 'required',
-                'email:rfc,dns',
+                'email:rfc',  // Sin DNS para permitir dominios de prueba
                 'max:255',
             ],
             

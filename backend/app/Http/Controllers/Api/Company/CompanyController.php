@@ -13,7 +13,6 @@ use App\Application\Company\Services\DeleteCompanyService;
 use App\Application\Company\Services\ActivateCompanyService;
 use App\Application\Company\Services\DeactivateCompanyService;
 use App\Application\Company\DTOs\CreateCompanyDTO;
-use App\Application\Company\DTOs\UpdateCompanyDTO;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -163,7 +162,7 @@ class CompanyController extends Controller
     /**
      * PUT /api/companies/{id}
      * 
-     * Actualizar empresa
+     * Actualizar empresa (soporta actualización parcial)
      * 
      * @param UpdateCompanyRequest $request
      * @param int $id
@@ -172,14 +171,11 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, int $id): JsonResponse
     {
         try {
-            // Crear DTO desde datos validados
-            $data = $request->validated();
-            $data['id'] = $id; // Agregar ID
-            
-            $dto = UpdateCompanyDTO::fromArray($data);
+            // Obtener solo los campos validados (permite actualización parcial)
+            $validatedData = $request->validated();
 
-            // Ejecutar servicio
-            $company = $this->updateCompanyService->execute($dto);
+            // Ejecutar servicio con los datos parciales
+            $company = $this->updateCompanyService->execute($id, $validatedData);
 
             return response()->json([
                 'message' => 'Empresa actualizada exitosamente',

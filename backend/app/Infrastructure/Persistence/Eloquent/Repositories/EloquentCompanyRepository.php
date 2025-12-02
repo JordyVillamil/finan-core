@@ -105,6 +105,53 @@ class EloquentCompanyRepository implements CompanyRepositoryInterface
     }
 
     /**
+     * Actualizar campos específicos de una empresa
+     * 
+     * @param CompanyId $id
+     * @param array<string, mixed> $fields
+     * @return Company
+     * @throws CompanyNotFoundException
+     */
+    public function update(CompanyId $id, array $fields): Company
+    {
+        $companyModel = $this->model->find($id->value());
+
+        if (!$companyModel) {
+            throw CompanyNotFoundException::withId($id->value());
+        }
+
+        // Mapear campos del DTO a columnas de BD
+        $columnMapping = [
+            'name' => 'name',
+            'legal_name' => 'legal_name',
+            'email' => 'email',
+            'phone' => 'phone',
+            'address_street' => 'address_street',
+            'address_city' => 'address_city',
+            'address_state' => 'address_state',
+            'address_country' => 'address_country',
+            'address_postal_code' => 'address_postal_code',
+            'tax_regime' => 'tax_regime',
+        ];
+
+        // Filtrar solo campos válidos y actualizar
+        $updateData = [];
+        foreach ($fields as $key => $value) {
+            if (isset($columnMapping[$key])) {
+                $updateData[$columnMapping[$key]] = $value;
+            }
+        }
+
+        if (!empty($updateData)) {
+            $updateData['updated_at'] = now();
+            $companyModel->update($updateData);
+            $companyModel->refresh();
+        }
+
+        return $this->mapToDomain($companyModel);
+    }
+
+    /**
      * Eliminar empresa (soft delete)
      * 
      * @param CompanyId $id

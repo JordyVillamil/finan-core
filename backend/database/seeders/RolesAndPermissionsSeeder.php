@@ -130,7 +130,7 @@ class RolesAndPermissionsSeeder extends Seeder
         foreach ($permissions as $permission) {
             Permission::firstOrCreate([
                 'name' => $permission,
-                'guard_name' => 'api', // Para API con Sanctum
+                'guard_name' => 'web', // Para API con Sanctum
             ]);
         }
 
@@ -152,7 +152,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $superAdmin = Role::firstOrCreate([
             'name' => 'Super Admin',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         // Asignar TODOS los permisos
@@ -170,7 +170,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $admin = Role::firstOrCreate([
             'name' => 'Admin',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         $admin->syncPermissions([
@@ -201,7 +201,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $accountant = Role::firstOrCreate([
             'name' => 'Contador',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         $accountant->syncPermissions([
@@ -234,7 +234,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $auditor = Role::firstOrCreate([
             'name' => 'Auditor',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         $auditor->syncPermissions([
@@ -260,7 +260,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $salesperson = Role::firstOrCreate([
             'name' => 'Vendedor',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         $salesperson->syncPermissions([
@@ -284,7 +284,7 @@ class RolesAndPermissionsSeeder extends Seeder
          */
         $user = Role::firstOrCreate([
             'name' => 'Usuario',
-            'guard_name' => 'api',
+            'guard_name' => 'web',
         ]);
         
         $user->syncPermissions([

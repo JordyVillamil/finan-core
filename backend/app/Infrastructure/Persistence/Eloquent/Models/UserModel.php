@@ -41,9 +41,9 @@ class UserModel extends Authenticatable
     /**
      * Guard para Spatie Permission
      * 
-     * Los roles y permisos se crearon con guard 'api'
+     * Sanctum usa el guard 'web' por defecto
      */
-    protected string $guard_name = 'api';
+    protected string $guard_name = 'web';
 
     /**
      * Nombre de la tabla en la base de datos

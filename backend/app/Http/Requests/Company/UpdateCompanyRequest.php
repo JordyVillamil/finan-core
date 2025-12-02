@@ -34,8 +34,9 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Información básica
+            // Información básica - 'sometimes' permite actualizaciones parciales
             'name' => [
+                'sometimes',
                 'required',
                 'string',
                 'min:2',
@@ -43,6 +44,7 @@ class UpdateCompanyRequest extends FormRequest
             ],
             
             'legal_name' => [
+                'sometimes',
                 'required',
                 'string',
                 'min:2',
@@ -50,8 +52,9 @@ class UpdateCompanyRequest extends FormRequest
             ],
             
             'email' => [
+                'sometimes',
                 'required',
-                'email:rfc,dns',
+                'email:rfc',  // Sin DNS para permitir dominios de prueba
                 'max:255',
             ],
             
@@ -64,18 +67,21 @@ class UpdateCompanyRequest extends FormRequest
             
             // Dirección
             'address_street' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:255',
             ],
             
             'address_city' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:100',
             ],
             
             'address_state' => [
+                'sometimes',
                 'required',
                 'string',
                 'max:100',

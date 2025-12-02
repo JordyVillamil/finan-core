@@ -119,6 +119,18 @@ Ver [INSTALLATION.md](docs/INSTALLATION.md) para instrucciones detalladas.
 | POST | `/api/auth/verify-email` | Verificar email | No |
 | POST | `/api/auth/resend-verification` | Reenviar verificación | No |
 
+## 🏢 API de Empresas
+
+| Método | Endpoint | Descripción | Permiso |
+|--------|----------|-------------|---------|
+| GET | `/api/companies` | Listar empresas | `view-companies` |
+| POST | `/api/companies` | Crear empresa | `create-companies` |
+| GET | `/api/companies/{id}` | Ver empresa | `view-companies` |
+| PUT | `/api/companies/{id}` | Actualizar empresa (parcial) | `edit-companies` |
+| DELETE | `/api/companies/{id}` | Eliminar empresa | `delete-companies` |
+| POST | `/api/companies/{id}/activate` | Activar empresa | `manage-companies` |
+| POST | `/api/companies/{id}/deactivate` | Desactivar empresa | `manage-companies` |
+
 ## 📚 Documentación
 
 - [Guía de Inicio Rápido](docs/00-QUICK-START-GUIDE.md)
@@ -195,7 +207,7 @@ Ver [DEPLOYMENT.md](docs/DEPLOYMENT.md) para más detalles.
 ```
 Sprint 0: ████████████████████ 100% ✅ Setup e Infraestructura
 Sprint 1: ████████████████████ 100% ✅ Autenticación y Usuarios
-Sprint 2: ████████████░░░░░░░░  60% 🔄 Empresas y Facturación
+Sprint 2: ████████████████░░░░  80% 🔄 Empresas y Facturación
 Sprint 3: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Inventario
 Sprint 4: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Compras
 Sprint 5: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Cobranza y Cotizaciones
@@ -203,7 +215,7 @@ Sprint 6: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ 
 Sprint 7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Reportes
 Sprint 8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ Testing y Refinamiento
 
-Progreso total: 32.5%
+Progreso total: 35%
 ```
 
 ### ✅ Completado (Sprint 1)
@@ -219,31 +231,32 @@ Progreso total: 32.5%
 
 ### 🔄 En Progreso (Sprint 2 - Empresas)
 
-#### ✅ Domain Layer
+#### ✅ Domain Layer (100%)
 - **Value Objects (4):** TaxId, PhoneNumber, Address, InvoiceSettings
 - **Entity:** Company con métodos de dominio
 - **Exceptions (4):** CompanyNotFoundException, InvalidTaxIdException, DuplicateTaxIdException, InvalidCompanyDataException
-- **Repository Interface:** CompanyRepositoryInterface
+- **Repository Interface:** CompanyRepositoryInterface con método `update()` para actualizaciones parciales
 - **Tests:** 84 tests unitarios pasando
 
-#### ✅ Infrastructure Layer
+#### ✅ Infrastructure Layer (100%)
 - **Migraciones:** 2 tablas (companies, company_settings)
 - **Model:** CompanyModel con relaciones y scopes
-- **Repository:** EloquentCompanyRepository implementado
+- **Repository:** EloquentCompanyRepository con soporte de actualizaciones parciales
 - **DI:** Bindings en DomainServiceProvider
 - **Tests:** 14 tests de integración pasando
 
-#### ✅ Application Layer
+#### ✅ Application Layer (100%)
 - **DTOs:** CreateCompanyDTO, UpdateCompanyDTO, CompanyResponseDTO
-- **Services:** CreateCompanyService, UpdateCompanyService, ListCompaniesService, DeleteCompanyService
+- **Services:** CreateCompanyService, UpdateCompanyService (refactorizado para updates parciales), ListCompaniesService, GetCompanyService, DeleteCompanyService, ActivateCompanyService, DeactivateCompanyService
 
-#### ✅ Presentation Layer
-- **Form Requests:** CreateCompanyRequest, UpdateCompanyRequest (validación)
+#### ✅ Presentation Layer (100%)
+- **Form Requests:** CreateCompanyRequest, UpdateCompanyRequest (con validación `sometimes` para updates parciales)
 - **Controller:** CompanyController con CRUD completo
-- **Rutas API:** 7 endpoints (CRUD + activate/deactivate)
+- **Middleware:** CheckPermission personalizado para integración Sanctum + Spatie
+- **Rutas API:** 7 endpoints probados y funcionando
 - **Permisos:** 5 permisos (view, create, edit, delete, manage)
 
-#### ⏳ Pendiente
+#### ⏳ Pendiente (Sprint 2)
 - CRUD de Clientes
 - CRUD de Productos
 - Facturación básica con PDF
